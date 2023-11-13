@@ -1,0 +1,27 @@
+<div>
+  <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" email id="email" name="email" [(ngModel)]="email" required
+        #emailInput="ngModel" [ngClass]="{ 'invalid-field': emailInput.invalid && emailInput.touched }">
+      <div *ngIf="emailInput.invalid && emailInput.touched" class="error-message">
+        <span *ngIf="emailInput.errors?.['required']">Email is required.</span>
+        <span *ngIf="emailInput.errors?.['email']">Invalid email format.</span>
+      </div>
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" [(ngModel)]="password" required minlength="4"
+        #passwordInput="ngModel" [ngClass]="{ 'invalid-field': passwordInput.invalid && passwordInput.touched }">
+      <div *ngIf="passwordInput.invalid && passwordInput.touched" class="error-message">
+        Password is required and must be at least 4 characters long !
+      </div>
+    </div>
+
+    <div *ngIf="formSubmissionError" class="error-message">
+      {{ formSubmissionError }}
+    </div>
+     <!--prop binding []-->
+    <button type="submit" [disabled]="loginForm.invalid">Envoyer</button>
+  </form>
+</div>
